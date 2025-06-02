@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>Lista de Tareas</h1>
+
+  <div class="form-section">
+    <input type="text" [(ngModel)]="nuevaTareaDescripcion" placeholder="Escribe una nueva tarea..."
+      (keyup.enter)="addTodo()" />
+    <button (click)="addTodo()">Añadir Tarea</button>
+  </div>
+
+  <div class="list-section">
+    <div *ngIf="(todos | async)?.length === 0" class="no-tasks">
+      No tienes tareas pendientes
+    </div>
+
+    <ul class="todo-list">
+      <li *ngFor="let todo of (todos | async)" [class.completed]="todo.completada">
+        <span (click)="toggleCompleted(todo.id)">
+          {{ todo.descripcion }}
+        </span>
+        <button (click)="deleteTodo(todo.id)" class="delete-btn">X</button>
+      </li>
+    </ul>
+  </div>
+
+  <button (click)="clearAllTodos()" class="clear-btn">Borrar todas</button>
+</div>
